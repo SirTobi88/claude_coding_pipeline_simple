@@ -1,0 +1,35 @@
+name: CI
+
+# Der Pflicht-Check der ccp-Pipeline (github-Modus, "ci": true in .claude/ccp/pipeline.json).
+# Er führt denselben Testbefehl aus wie die Agents lokal (`test_command`).
+# Den Job-Namen `ci` nicht ändern – die Branch Protection verlangt ihn mit diesem Namen.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      # EDIT: Toolchain installieren, Versionen pinnen – z. B.
+      #   - uses: actions/setup-python@v5
+      #     with: { python-version: "3.12" }
+      #   - uses: actions/setup-node@v4
+      #     with: { node-version: "22" }
+
+      - name: test
+        run: bash -c "$(jq -r .test_command .claude/ccp/pipeline.json)"
