@@ -15,11 +15,26 @@ Nur Markdown und eine JSON-Datei: drei Agents, sechs Commands, keine Skripte, ke
 Zwei Modi: **local** (Tasks als Dateien, Merge im lokalen Repo) und **github** (Issues, PRs,
 Merge auf GitHub – funktioniert auch mit GitHub Free).
 
+```mermaid
+flowchart LR
+    idea["Idee<br/>(ideas.md / Issue idea)"] --> planner["Planner<br/>(Opus)"]
+    planner -->|"Tasks mit Tier 1–5"| task["Task<br/>status:todo"]
+    task --> impl["Implementer<br/>(Claude oder Codex,<br/>Modell nach Tier)"]
+    impl -->|Rückfrage| answer{"Planner<br/>antwortet einmal"}
+    answer -->|geklärt| task
+    impl --> check{"Allowlist<br/>+ Tests"}
+    check -->|rot| fix["fix<br/>(nach 2 Fehlversuchen<br/>Tier + 1)"]
+    fix --> impl
+    check -->|grün| review["Reviewer<br/>(Opus / Fable)"]
+    review -->|CHANGES| fix
+    review -->|OK| merge(["Merge<br/>lokal oder PR"])
+    answer -->|offen| human(["Du"])
+    review -->|ESCALATE| human
+    fix -->|"3. Fehlversuch"| human
 ```
-Idee ──/ccp_plan──> Tasks (mit Tier) ──/ccp_implement──> Worktree + Tests ──/ccp_review──> Merge
-                                           ^                                   │
-                                           └────────── fix (max. 3, dann du) ──┘
-```
+
+`/ccp_next` führt jeweils den nächsten Schritt aus; `/loop /ccp_next` lässt die Pipeline
+durchlaufen, bis nur noch Fragen an dich offen sind.
 
 ## Rollen
 
