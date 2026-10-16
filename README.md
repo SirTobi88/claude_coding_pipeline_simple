@@ -51,16 +51,27 @@ Rückfragen vom Implementer beantwortet der Planner **einmal**; die nächste geh
 Der Planner setzt je Task ein Tier. Das Modell steht nur in `.claude/ccp/pipeline.json` –
 neue Modelle trägst du dort ein, nirgends sonst.
 
-| Tier | Art | Beispiel | Claude | Codex |
-|---|---|---|---|---|
-| 1 | trivial | Umbenennung, Konstante, Doku | haiku · high | luna · high |
-| 2 | klein | Funktion + Test nach Muster | sonnet · medium | sol · medium |
-| 3 | standard | neuer Endpoint, Parser, Adapter | sonnet · high | sol · medium |
-| 4 | schwer | Refactoring über Module, Nebenläufigkeit | opus · medium | sol · high |
-| 5 | heikel | Sicherheitslogik, unklarer Bug, Datenmodell | opus · max | astra · medium |
+**Tiers:** 1 trivial (Umbenennung, Konstante, Doku) · 2 klein (Funktion + Test nach Muster) ·
+3 standard (neuer Endpoint, Parser, Adapter) · 4 schwer (Refactoring über Module,
+Nebenläufigkeit) · 5 heikel (Sicherheitslogik, unklarer Bug, Datenmodell).
 
-`"runner": "auto"` nimmt Codex für Tier 1–3 und Claude für 4–5 (`auto_runner`). Ein Task kann
-per `runner:` übersteuern. Nach zwei Fehlversuchen steigt das Tier um eins, nach drei wird der
+| Aufgabe | Tier | Codex | Claude |
+|---|---|---|---|
+| **Plan / Rückfrage** | – | – | Opus · high (immer) |
+| **Implement** | 1 | **gpt-6-luna · high** | Haiku · high |
+| | 2 | **gpt-6.1-sol · medium** | Sonnet · medium |
+| | 3 | **gpt-6.1-sol · medium** | Sonnet · high |
+| | 4 | gpt-6.1-sol · high | **Opus · medium** |
+| | 5 | gpt-6-astra · medium | **Opus · max** |
+| **Review** | 1–3 | **gpt-6-astra · medium** | Opus · medium |
+| | 4 | **gpt-6-astra · medium** | Opus · high |
+| | 5 | **gpt-6-astra · high** | Opus · xhigh |
+| **Loop / Ablauf** | – | – | Modell dieser Session (Empfehlung Sonnet · low) |
+
+**Fett** = Standard (`"runner": "auto"` → Codex für Tier 1–3, Claude für 4–5; `reviewer.runner`
+→ Codex). Ein Task kann per `runner:` übersteuern. Codex-Modelle stehen in der Konfiguration als
+Familie (luna, sol, astra); genommen wird jeweils das neueste – die Namen oben sind der Stand
+Oktober 2026. Ein Codex-Reviewer prüft nie das eigene Modell (dann Claude), außer bei Tier 5. Nach zwei Fehlversuchen steigt das Tier um eins, nach drei wird der
 Task an dich übergeben. Details und Beispiele: [.claude/ccp/TASK.md](.claude/ccp/TASK.md).
 
 Lokale Modelle (z. B. qwen-coder über `codex --oss` + Ollama) sind vorgesehen (`"local": null`
