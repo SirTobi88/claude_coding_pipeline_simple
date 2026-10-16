@@ -102,16 +102,20 @@ nach Zeilenzahl. Im Zweifel eine Stufe höher; das ist billiger als drei Fehlver
 
 | Tier | Art | Beispiele | Claude | Codex | lokal (später) |
 |---|---|---|---|---|---|
-| 1 trivial | mechanisch, eine Stelle, kein Entwurf | Tippfehler, Umbenennung, Konstante ändern, Doku-Absatz, Lint-Fix | haiku · low | luna · low | qwen-coder |
-| 2 klein | eine Funktion nach vorhandenem Muster | Validierung ergänzen, Getter + Test, Formatierungsfunktion, Testfall nachziehen | sonnet · medium | terra · medium | qwen-coder |
+| 1 trivial | mechanisch, eine Stelle, kein Entwurf | Tippfehler, Umbenennung, Konstante ändern, Doku-Absatz, Lint-Fix | haiku · high | luna · high | qwen-coder |
+| 2 klein | eine Funktion nach vorhandenem Muster | Validierung ergänzen, Getter + Test, Formatierungsfunktion, Testfall nachziehen | sonnet · medium | sol · medium | qwen-coder |
 | 3 standard | neue Einheit, eine Nahtstelle, mehrere Dateien | neuer Endpoint, Parser, Adapter nach Vorbild, CLI-Unterbefehl | sonnet · high | sol · medium | – |
-| 4 schwer | modulübergreifend oder knifflig | Refactoring über Module, Caching, Nebenläufigkeit, Datenmigration | opus · high | sol · high | – |
-| 5 heikel | Architektur oder unklare Ursache | Sicherheitslogik, schwer reproduzierbarer Bug, neues Datenmodell | fable · high | astra · high | – |
+| 4 schwer | modulübergreifend oder knifflig | Refactoring über Module, Caching, Nebenläufigkeit, Datenmigration | opus · medium | sol · high | – |
+| 5 heikel | Architektur oder unklare Ursache | Sicherheitslogik, schwer reproduzierbarer Bug, neues Datenmodell | opus · max | astra · medium | – |
 
 - **Runner:** Task-Feld `runner`, sonst `runner` aus `pipeline.json`. `auto` nimmt
   `auto_runner` (Standard: Codex für Tier 1–3, Claude für 4–5).
 - **Codex-Modelle** stehen als Familie; `/ccp_implement` nimmt jeweils das neueste Modell der
   Familie aus `codex debug models`.
-- **Reviewer:** `reviewer` in `pipeline.json` – Opus, bei Tier 5 Fable. Nie schwächer als der Implementer.
+- **Reviewer:** `reviewer` in `pipeline.json`. `reviewer.runner` wählt Claude oder Codex (Standard:
+  Codex – spart Claude-Limit); je Runner ein Modell für `default` und einzelne Tiers
+  (Codex: astra · medium, Tier 5 astra · high; Claude: Opus · medium, Tier 4 high, Tier 5 xhigh).
+  Bei Codex nie dasselbe Modell, das den Task umgesetzt hat – Ausnahme Tier 5: dort prüft
+  immer das stärkste Modell (astra · high), auch wenn astra selbst umgesetzt hat.
 - **lokal:** `"local": null` ist ein Platzhalter. Ein späterer Skill trägt dort einen Aufruf ein
   (z. B. `codex --oss` mit Ollama) und erweitert `/ccp_implement` um den Runner `local`.

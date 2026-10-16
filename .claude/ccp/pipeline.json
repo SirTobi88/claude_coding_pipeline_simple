@@ -7,14 +7,16 @@
   "auto_runner": { "1": "codex", "2": "codex", "3": "codex", "4": "claude", "5": "claude" },
   "max_tasks_per_plan": 6,
   "tiers": {
-    "1": { "claude": { "model": "haiku",  "effort": "low" },    "codex": { "family": "luna",  "effort": "low" },    "local": null },
-    "2": { "claude": { "model": "sonnet", "effort": "medium" }, "codex": { "family": "terra", "effort": "medium" }, "local": null },
+    "1": { "claude": { "model": "haiku",  "effort": "high" },    "codex": { "family": "luna",  "effort": "high" },    "local": null },
+    "2": { "claude": { "model": "sonnet", "effort": "medium" }, "codex": { "family": "sol",   "effort": "medium" }, "local": null },
     "3": { "claude": { "model": "sonnet", "effort": "high" },   "codex": { "family": "sol",   "effort": "medium" }, "local": null },
-    "4": { "claude": { "model": "opus",   "effort": "high" },   "codex": { "family": "sol",   "effort": "high" },   "local": null },
-    "5": { "claude": { "model": "fable",  "effort": "high" },   "codex": { "family": "astra", "effort": "high" },   "local": null }
+    "4": { "claude": { "model": "opus",   "effort": "medium" },   "codex": { "family": "sol",   "effort": "high" },   "local": null },
+    "5": { "claude": { "model": "opus",   "effort": "max" },    "codex": { "family": "astra", "effort": "medium" },   "local": null }
   },
   "reviewer": {
-    "default": { "model": "opus",  "effort": "high" },
-    "5":       { "model": "fable", "effort": "high" }
+    "runner": "codex",
+    "default": { "claude": { "model": "opus",  "effort": "medium" }, "codex": { "family": "astra", "effort": "medium" } },
+    "4":       { "claude": { "model": "opus",  "effort": "high" },   "codex": { "family": "astra", "effort": "medium" } },
+    "5":       { "claude": { "model": "opus",  "effort": "xhigh" }, "codex": { "family": "astra", "effort": "high" } }
   }
 }

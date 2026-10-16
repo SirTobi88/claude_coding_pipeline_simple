@@ -25,7 +25,7 @@ flowchart LR
     impl --> check{"Allowlist<br/>+ Tests"}
     check -->|rot| fix["fix<br/>(nach 2 Fehlversuchen<br/>Tier + 1)"]
     fix --> impl
-    check -->|grün| review["Reviewer<br/>(Opus / Fable)"]
+    check -->|grün| review["Reviewer<br/>(Codex astra<br/>oder Opus)"]
     review -->|CHANGES| fix
     review -->|OK| merge(["Merge<br/>lokal oder PR"])
     answer -->|offen| human(["Du"])
@@ -42,7 +42,7 @@ durchlaufen, bis nur noch Fragen an dich offen sind.
 |---|---|---|
 | Planner | `.claude/agents/planner.md` | Opus |
 | Implementer | `.claude/agents/implementer.md` | frei – nach Tier (Claude oder Codex) |
-| Reviewer | `.claude/agents/reviewer.md` | Opus, bei Tier 5 Fable |
+| Reviewer | `.claude/agents/reviewer.md` | Codex astra (oder Opus) – nie dasselbe Modell wie der Implementer, außer Tier 5 |
 
 Rückfragen vom Implementer beantwortet der Planner **einmal**; die nächste geht an dich.
 
@@ -53,11 +53,11 @@ neue Modelle trägst du dort ein, nirgends sonst.
 
 | Tier | Art | Beispiel | Claude | Codex |
 |---|---|---|---|---|
-| 1 | trivial | Umbenennung, Konstante, Doku | haiku · low | luna · low |
-| 2 | klein | Funktion + Test nach Muster | sonnet · medium | terra · medium |
+| 1 | trivial | Umbenennung, Konstante, Doku | haiku · high | luna · high |
+| 2 | klein | Funktion + Test nach Muster | sonnet · medium | sol · medium |
 | 3 | standard | neuer Endpoint, Parser, Adapter | sonnet · high | sol · medium |
-| 4 | schwer | Refactoring über Module, Nebenläufigkeit | opus · high | sol · high |
-| 5 | heikel | Sicherheitslogik, unklarer Bug, Datenmodell | fable · high | astra · high |
+| 4 | schwer | Refactoring über Module, Nebenläufigkeit | opus · medium | sol · high |
+| 5 | heikel | Sicherheitslogik, unklarer Bug, Datenmodell | opus · max | astra · medium |
 
 `"runner": "auto"` nimmt Codex für Tier 1–3 und Claude für 4–5 (`auto_runner`). Ein Task kann
 per `runner:` übersteuern. Nach zwei Fehlversuchen steigt das Tier um eins, nach drei wird der

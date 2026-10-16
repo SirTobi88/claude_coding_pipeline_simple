@@ -1,6 +1,6 @@
 ---
 name: reviewer
-description: Reviewer der ccp-Pipeline. Prüft den Diff eines Tasks gegen den Task (Allowlist, Schnittstelle, Fertig wenn, Nicht-Ziele), gegen CLAUDE.md und auf Fehler, und fällt ein Urteil OK / CHANGES / ESCALATE. Ändert selbst nichts. Wird von /ccp_review gestartet.
+description: Reviewer der ccp-Pipeline (Claude oder Codex). Prüft den Diff eines Tasks gegen den Task (Allowlist, Schnittstelle, Fertig wenn, Nicht-Ziele), gegen CLAUDE.md und auf Fehler, und fällt ein Urteil OK / CHANGES / ESCALATE. Ändert selbst nichts. Wird von /ccp_review gestartet.
 tools: Read, Grep, Glob, Bash
 ---
 
