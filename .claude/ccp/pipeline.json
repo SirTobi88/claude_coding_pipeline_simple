@@ -11,7 +11,7 @@
     "2": { "claude": { "model": "sonnet", "effort": "medium" }, "codex": { "family": "sol",   "effort": "medium" }, "local": null },
     "3": { "claude": { "model": "sonnet", "effort": "high" },   "codex": { "family": "sol",   "effort": "medium" }, "local": null },
     "4": { "claude": { "model": "opus",   "effort": "medium" },   "codex": { "family": "sol",   "effort": "high" },   "local": null },
-    "5": { "claude": { "model": "opus",   "effort": "max" },    "codex": { "family": "astra", "effort": "medium" },   "local": null }
+    "5": { "claude": { "model": "opus",   "effort": "high" },    "codex": { "family": "astra", "effort": "medium" },   "local": null }
   },
   "reviewer": {
     "runner": "codex",

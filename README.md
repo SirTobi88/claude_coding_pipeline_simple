@@ -62,7 +62,7 @@ Nebenläufigkeit) · 5 heikel (Sicherheitslogik, unklarer Bug, Datenmodell).
 | | 2 | **gpt-6.1-sol · medium** | Sonnet · medium |
 | | 3 | **gpt-6.1-sol · medium** | Sonnet · high |
 | | 4 | gpt-6.1-sol · high | **Opus · medium** |
-| | 5 | gpt-6-astra · medium | **Opus · max** |
+| | 5 | gpt-6-astra · medium | **Opus · high** |
 | **Review** | 1–3 | **gpt-6-astra · medium** | Opus · medium |
 | | 4 | **gpt-6-astra · medium** | Opus · high |
 | | 5 | **gpt-6-astra · high** | Opus · xhigh |

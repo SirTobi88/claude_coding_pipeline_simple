@@ -106,7 +106,7 @@ nach Zeilenzahl. Im Zweifel eine Stufe höher; das ist billiger als drei Fehlver
 | 2 klein | eine Funktion nach vorhandenem Muster | Validierung ergänzen, Getter + Test, Formatierungsfunktion, Testfall nachziehen | sonnet · medium | sol · medium | qwen-coder |
 | 3 standard | neue Einheit, eine Nahtstelle, mehrere Dateien | neuer Endpoint, Parser, Adapter nach Vorbild, CLI-Unterbefehl | sonnet · high | sol · medium | – |
 | 4 schwer | modulübergreifend oder knifflig | Refactoring über Module, Caching, Nebenläufigkeit, Datenmigration | opus · medium | sol · high | – |
-| 5 heikel | Architektur oder unklare Ursache | Sicherheitslogik, schwer reproduzierbarer Bug, neues Datenmodell | opus · max | astra · medium | – |
+| 5 heikel | Architektur oder unklare Ursache | Sicherheitslogik, schwer reproduzierbarer Bug, neues Datenmodell | opus · high | astra · medium | – |
 
 - **Runner:** Task-Feld `runner`, sonst `runner` aus `pipeline.json`. `auto` nimmt
   `auto_runner` (Standard: Codex für Tier 1–3, Claude für 4–5).
